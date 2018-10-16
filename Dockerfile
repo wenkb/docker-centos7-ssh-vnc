@@ -1,7 +1,6 @@
 FROM centos:centos7
 
 LABEL description="centos7 with ssh and vnc" \
-      organization="JUSFOUN" \
       author="wenkb" \
       create_date="2018-09-01" \
       build_cmd="docker build --rm -t wenkb-centos7:v1 ."
