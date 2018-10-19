@@ -3,7 +3,7 @@ FROM centos:centos7
 LABEL description="centos7 with ssh and vnc" \
       author="wenkb" \
       create_date="2018-09-01" \
-      build_cmd="docker build --rm -t wenkb-centos7:v1 ."
+      build_cmd="docker build --rm -t wenkb/docker-centos7-ssh-vnc:v1.0 ."
 
 # envrionment config
 ENV ROOT_PW=password \
