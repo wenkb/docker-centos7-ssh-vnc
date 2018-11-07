@@ -16,17 +16,14 @@ RUN echo "root:$ROOT_PW" | chpasswd
 RUN rm -rf /etc/localtime \
  && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
-# chinese support
+# install software
 RUN yum -y update \
+ # chinese support
  && yum -y install wqy* \
  && yum -y install kde-l10n-Chinese \
  && yum -y reinstall glibc-common \
- && yum clean all \
  && echo 'LANG="zh_CN.UTF-8"' > /etc/locale.conf \
- && localedef -c -f UTF-8 -i zh_CN zh_CN.utf8
-
-# install openssh and desktop
-RUN yum -y update \
+ && localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 \
  # openssh
  && yum -y install openssh-clients openssh-server epel-release vim \
  && echo 'UseDNS no' >> /etc/ssh/sshd_config \
@@ -40,16 +37,17 @@ RUN yum -y update \
  && mkdir -p /root/.vnc \
  && echo $ROOT_PW | vncpasswd -f > /root/.vnc/passwd \
  && chmod 600 /root/.vnc/passwd \
- && yum clean all
-
-# install tools
-RUN yum -y update \
+ # tools
  && yum -y install firefox \
  && yum -y install im-chooser \
  && yum -y install ibus \
  && yum -y install ibus-libpinyin \
  && yum -y install wget \
  && yum -y install gedit \
+ # sublime text 3
+ && rpm -v --import https://download.sublimetext.com/sublimehq-rpm-pub.gpg \
+ && yum-config-manager --add-repo https://download.sublimetext.com/rpm/stable/x86_64/sublime-text.repo \
+ && yum -y install sublime-text \
  && yum clean all
 
 # create upload and download dir
